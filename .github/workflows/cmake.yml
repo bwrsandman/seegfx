@@ -1,0 +1,79 @@
+name: CMake
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-latest, windows-latest]
+        preset: [unix-makefile-system-deps, ninja-system-deps, msys-makefile-system-deps, ninja-emscripten, ninja-android-armeabi-v7a, ninja-android-arm64-v8a, ninja-android-x86, ninja-android-x86_64, ios, tvos, watchos, apple-silicon]
+        libtype: [STATIC, SHARED]
+        buildtype: [debug, release]
+        exclude:
+          # MSYS Stuff
+          - os: ubuntu-22.04
+            preset: msys-makefile-system-deps
+          - os: macos-latest
+            preset: msys-makefile-system-deps
+          # Unix Stuff
+          - os: windows-latest
+            preset: unix-makefile-system-deps
+          # Apple Stuff
+          - os: ubuntu-22.04
+            preset: ios
+          - os: ubuntu-22.04
+            preset: tvos
+          - os: ubuntu-22.04
+            preset: watchos
+          - os: ubuntu-22.04
+            preset: apple-silicon
+          - os: windows-latest
+            preset: ios
+          - os: windows-latest
+            preset: tvos
+          - os: windows-latest
+            preset: watchos
+          - os: windows-latest
+            preset: apple-silicon
+          # Some Apple Platforms won't compile to shared
+          - libtype: SHARED
+            preset: ios
+          - libtype: SHARED
+            preset: tvos
+          - libtype: SHARED
+            preset: watchos
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Emscripten
+      uses: mymindstorm/setup-emsdk@v11
+      if: startsWith(matrix.preset, 'ninja-emscripten')
+
+    - name: Install dependencies on MSYS2
+      if: startsWith(matrix.os, 'windows') && startsWith(matrix.preset, 'msys-makefile')
+      uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: cmake
+
+    - name: Install dependencies on Ubuntu
+      if: startsWith(matrix.os, 'ubuntu') && startsWith(matrix.preset, 'ninja')
+      run: sudo apt-get install ninja-build
+
+    - name: Install dependencies on MacOS
+      if: startsWith(matrix.os, 'macos') && startsWith(matrix.preset, 'ninja')
+      run: brew install ninja
+
+    - name: Configure CMake
+      run: cmake --preset ${{matrix.preset}} -DSEEGFX_LIBRARY_TYPE=${{matrix.libtype}}
+
+    - name: Build
+      run: cmake --build --preset ${{matrix.preset}}-${{matrix.buildtype}}

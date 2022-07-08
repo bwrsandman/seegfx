@@ -1,0 +1,317 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "template-ninja-android",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/cmake-build-presets/${presetName}",
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "type": "FILEPATH",
+          "value": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake"
+        },
+        "ANDROID_NDK_HOME": {
+          "type": "FILEPATH",
+          "value": "$env{ANDROID_NDK_HOME}"
+        },
+        "ANDROID_PLATFORM": "android-21"
+      }
+    },
+    {
+      "name": "template-apple",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/cmake-build-presets/${presetName}",
+      "generator": "Xcode",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "type": "FILEPATH",
+          "value": "cmake/ios.toolchain.cmake"
+        }
+      }
+    },
+    {
+      "name": "ninja-system-deps",
+      "displayName": "Ninja (System Deps)",
+      "description": "Configure with Ninja to use system-installed dependencies",
+      "generator": "Ninja Multi-Config",
+      "binaryDir": "${sourceDir}/cmake-build-presets/${presetName}"
+    },
+    {
+      "name": "unix-makefile-system-deps",
+      "displayName": "Unix Makefiles (System Deps)",
+      "description": "Configure with Makefiles to use system-installed dependencies",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/cmake-build-presets/${presetName}"
+    },
+    {
+      "name": "msys-makefile-system-deps",
+      "displayName": "MSYS Makefiles (System Deps)",
+      "description": "Configure with Makefiles to use system-installed dependencies",
+      "generator": "MSYS Makefiles",
+      "binaryDir": "${sourceDir}/cmake-build-presets/${presetName}"
+    },
+    {
+      "name": "ninja-emscripten",
+      "displayName": "Ninja (Emscripten)",
+      "description": "Configure with Ninja to cross compile to emscripten",
+      "binaryDir": "${sourceDir}/cmake-build-presets/${presetName}",
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "type": "FILEPATH",
+          "value": "$env{EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+        }
+      }
+    },
+    {
+      "name": "ninja-android-armeabi-v7a",
+      "displayName": "Ninja (Android ARM 7)",
+      "description": "Configure with Ninja to cross compile to Android version 7 with Arm Architecture",
+      "inherits": "template-ninja-android",
+      "cacheVariables": {
+        "ANDROID_ABI": "armeabi-v7a"
+      }
+    },
+    {
+      "name": "ninja-android-arm64-v8a",
+      "displayName": "Ninja (Android ARM64 8)",
+      "description": "Configure with Ninja to cross compile to Android version 8 with Arm64 Architecture",
+      "inherits": "template-ninja-android",
+      "cacheVariables": {
+        "ANDROID_ABI": "arm64-v8a"
+      }
+    },
+    {
+      "name": "ninja-android-x86",
+      "displayName": "Ninja (Android x86)",
+      "description": "Configure with Ninja to cross compile to Android with x86 Architecture",
+      "inherits": "template-ninja-android",
+      "cacheVariables": {
+        "ANDROID_ABI": "x86"
+      }
+    },
+    {
+      "name": "ninja-android-x86_64",
+      "displayName": "Ninja (Android x86_64)",
+      "description": "Configure with Ninja to cross compile to Android with x86_64 Architecture",
+      "inherits": "template-ninja-android",
+      "cacheVariables": {
+        "ANDROID_ABI": "x86_64"
+      }
+    },
+    {
+      "name": "ios",
+      "displayName": "XCode (iOS)",
+      "description": "Configure with XCode to cross compile to the iOS platform",
+      "inherits": "template-apple",
+      "cacheVariables": {
+        "PLATFORM": "OS64COMBINED"
+      }
+    },
+    {
+      "name": "tvos",
+      "displayName": "XCode (tvOS)",
+      "description": "Configure with XCode to cross compile to the tvOS platform",
+      "inherits": "template-apple",
+      "cacheVariables": {
+        "PLATFORM": "TVOSCOMBINED"
+      }
+    },
+    {
+      "name": "watchos",
+      "displayName": "XCode (watchOS)",
+      "description": "Configure with XCode to cross compile to the watchOS platform",
+      "inherits": "template-apple",
+      "cacheVariables": {
+        "PLATFORM": "WATCHOSCOMBINED"
+      }
+    },
+    {
+      "name": "apple-silicon",
+      "displayName": "XCode (Apple Silicon)",
+      "description": "Configure with XCode to cross compile to the Apple Silicon platform",
+      "inherits": "template-apple",
+      "cacheVariables": {
+        "PLATFORM": "MAC_ARM64"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ninja-system-deps-debug",
+      "configurePreset": "ninja-system-deps",
+      "displayName": "Ninja System Deps Debug",
+      "description": "Build using Ninja and Systems Dependencies for the Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ninja-system-deps-release",
+      "configurePreset": "ninja-system-deps",
+      "displayName": "Ninja System Deps Release",
+      "description": "Build using Ninja and Systems Dependencies for the Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "unix-makefile-system-deps-debug",
+      "configurePreset": "unix-makefile-system-deps",
+      "displayName": "Unix Makesfiles System Deps Debug",
+      "description": "Build using Makefiles and Systems Dependencies for the Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "unix-makefile-system-deps-release",
+      "configurePreset": "unix-makefile-system-deps",
+      "displayName": "Unix Makesfiles System Deps Release",
+      "description": "Build using Makefiles and Systems Dependencies for the Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "msys-makefile-system-deps-debug",
+      "configurePreset": "msys-makefile-system-deps",
+      "displayName": "MSYS Makesfiles System Deps Debug",
+      "description": "Build using Makefiles and Systems Dependencies for the Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "msys-makefile-system-deps-release",
+      "configurePreset": "msys-makefile-system-deps",
+      "displayName": "MSYS Makesfiles System Deps Release",
+      "description": "Build using Makefiles and Systems Dependencies for the Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "ninja-emscripten-debug",
+      "configurePreset": "ninja-emscripten",
+      "displayName": "Cross Compiling for Emscripten Debug",
+      "description": "Build using Ninja for Web Assembly Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ninja-emscripten-release",
+      "configurePreset": "ninja-emscripten",
+      "displayName": "Cross Compiling for Emscripten Release",
+      "description": "Build using Ninja for Web Assembly Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "ninja-android-armeabi-v7a-debug",
+      "configurePreset": "ninja-android-armeabi-v7a",
+      "displayName": "Cross Compiling for Android ARM7 Debug",
+      "description": "Build using Ninja for the Android ARM7 Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ninja-android-armeabi-v7a-release",
+      "configurePreset": "ninja-android-armeabi-v7a",
+      "displayName": "Cross Compiling for Android ARM7 Release",
+      "description": "Build using Ninja for the Android ARM7 Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "ninja-android-arm64-v8a-debug",
+      "configurePreset": "ninja-android-arm64-v8a",
+      "displayName": "Cross Compiling for Android ARM64 8 Debug",
+      "description": "Build using Ninja for the Android ARM64 8 Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ninja-android-arm64-v8a-release",
+      "configurePreset": "ninja-android-arm64-v8a",
+      "displayName": "Cross Compiling for Android ARM64 8 Release",
+      "description": "Build using Ninja for the Android ARM64 8 Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "ninja-android-x86-debug",
+      "configurePreset": "ninja-android-x86",
+      "displayName": "Cross Compiling for Android x86 Debug",
+      "description": "Build using Ninja for the Android x86 Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ninja-android-x86-release",
+      "configurePreset": "ninja-android-x86",
+      "displayName": "Cross Compiling for Android x86 Release",
+      "description": "Build using Ninja for the Android x86 Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "ninja-android-x86_64-debug",
+      "configurePreset": "ninja-android-x86_64",
+      "displayName": "Cross Compiling for Android x86_64 Debug",
+      "description": "Build using Ninja for the Android x86_64 Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ninja-android-x86_64-release",
+      "configurePreset": "ninja-android-x86_64",
+      "displayName": "Cross Compiling for Android x86_64 Release",
+      "description": "Build using Ninja for the Android x86_64 Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "ios-debug",
+      "configurePreset": "ios",
+      "displayName": "Cross Compiling for iOS Debug",
+      "description": "Build using Ninja for the iOS Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ios-release",
+      "configurePreset": "ios",
+      "displayName": "Cross Compiling for iOS Release",
+      "description": "Build using Ninja for the iOS Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "tvos-debug",
+      "configurePreset": "tvos",
+      "displayName": "Cross Compiling for tvOS Debug",
+      "description": "Build using Ninja for the tvOS Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "tvos-release",
+      "configurePreset": "tvos",
+      "displayName": "Cross Compiling for tvOS Release",
+      "description": "Build using Ninja for the tvOS Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "watchos-debug",
+      "configurePreset": "watchos",
+      "displayName": "Cross Compiling for watchOS Debug",
+      "description": "Build using Ninja for the watchOS Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "watchos-release",
+      "configurePreset": "watchos",
+      "displayName": "Cross Compiling for watchOS Release",
+      "description": "Build using Ninja for the watchOS Release configuration",
+      "configuration": "Release"
+    },
+    {
+      "name": "apple-silicon-debug",
+      "configurePreset": "apple-silicon",
+      "displayName": "Cross Compiling for Apple Silicon Debug",
+      "description": "Build using Ninja for the Apple Silicon Debug configuration",
+      "configuration": "Debug"
+    },
+    {
+      "name": "apple-silicon-release",
+      "configurePreset": "apple-silicon",
+      "displayName": "Cross Compiling for Apple Silicon Release",
+      "description": "Build using Ninja for the Apple Silicon Release configuration",
+      "configuration": "Release"
+    }
+  ],
+  "testPresets": [
+  ]
+}
