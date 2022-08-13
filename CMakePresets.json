@@ -124,15 +124,6 @@
       }
     },
     {
-      "name": "watchos",
-      "displayName": "XCode (watchOS)",
-      "description": "Configure with XCode to cross compile to the watchOS platform",
-      "inherits": "template-apple",
-      "cacheVariables": {
-        "PLATFORM": "WATCHOSCOMBINED"
-      }
-    },
-    {
       "name": "apple-silicon",
       "displayName": "XCode (Apple Silicon)",
       "description": "Configure with XCode to cross compile to the Apple Silicon platform",
@@ -281,20 +272,6 @@
       "configurePreset": "tvos",
       "displayName": "Cross Compiling for tvOS Release",
       "description": "Build using Ninja for the tvOS Release configuration",
-      "configuration": "Release"
-    },
-    {
-      "name": "watchos-debug",
-      "configurePreset": "watchos",
-      "displayName": "Cross Compiling for watchOS Debug",
-      "description": "Build using Ninja for the watchOS Debug configuration",
-      "configuration": "Debug"
-    },
-    {
-      "name": "watchos-release",
-      "configurePreset": "watchos",
-      "displayName": "Cross Compiling for watchOS Release",
-      "description": "Build using Ninja for the watchOS Release configuration",
       "configuration": "Release"
     },
     {
