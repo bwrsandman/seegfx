@@ -6,5 +6,6 @@
         " *"
     ],
     "ignore": [
+        "3rdParty/"
     ]
 }
