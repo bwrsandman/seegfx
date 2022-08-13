@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04, macos-latest, windows-latest]
-        preset: [unix-makefile-system-deps, ninja-system-deps, msys-makefile-system-deps, ninja-emscripten, ninja-android-armeabi-v7a, ninja-android-arm64-v8a, ninja-android-x86, ninja-android-x86_64, ios, tvos, watchos, apple-silicon]
+        preset: [unix-makefile-system-deps, ninja-system-deps, msys-makefile-system-deps, ninja-emscripten, ninja-android-armeabi-v7a, ninja-android-arm64-v8a, ninja-android-x86, ninja-android-x86_64, ios, tvos, apple-silicon]
         libtype: [STATIC, SHARED]
         buildtype: [debug, release]
         exclude:
@@ -31,15 +31,11 @@ jobs:
           - os: ubuntu-22.04
             preset: tvos
           - os: ubuntu-22.04
-            preset: watchos
-          - os: ubuntu-22.04
             preset: apple-silicon
           - os: windows-latest
             preset: ios
           - os: windows-latest
             preset: tvos
-          - os: windows-latest
-            preset: watchos
           - os: windows-latest
             preset: apple-silicon
           # Some Apple Platforms won't compile to shared
@@ -47,8 +43,6 @@ jobs:
             preset: ios
           - libtype: SHARED
             preset: tvos
-          - libtype: SHARED
-            preset: watchos
 
     steps:
     - uses: actions/checkout@v2
